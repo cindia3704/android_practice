@@ -1,0 +1,93 @@
+
+
+Network
+    - 통신
+
+
+Database <---------> Server <--------> Client(app,web...)
+
+
+Local Database 의 한계
+    - 동기화가 어렵다
+    - 상호작용인 불가능 하다 (ex. 댓글 기능) --남의 data & 우리의 data모두에 접근할 수 있어야함
+    - 이 한계 때문에 서버를 통해 데이터 베이스에 접근한다
+
+서버와 통신하는 방법
+    - 해당 url로 요청한다.
+    - (어떤 추가 정보를 넣을 수 있음 -- intent 의 putExtra처럼) <-- 사용자를 분간하기 위해
+    - 인증정보를 보낸다
+    - JSON 형식을 사용해서 data를 보낸다 ( 이 형식으로 서버와 통신한다)
+    - JavaScript Object Notation -> Javascript에서 객체를 만들 때 사용하는 표현식이다 (데이터 통신할 때 사용한다)
+
+JSON 형식
+- [] -> List
+- {} -> 객체
+     -> "" -> 문자열
+     -> ""없으면 -> 숫자
+예) 리스트안에 2개(의 객체)가 있는것!
+JSon Response   -----> 문서에 타입 써있음.
+[
+    {
+        "id":1,
+        "name":"홍길동",
+        "age":20,
+        "intro": "나는 홍길동이다"
+    },
+    {
+        "id":2,
+        "name":"김아무개",
+        "age":2,
+        "intro": "나는 김아무개이다"
+    }
+]
+
+코틀린
+val number : Int = 10 <-- 강타입
+val number =10       <-- 추론 (약한 강타입)
+
+자바는 완전 강타입
+자바스크립트= 추론을 통해 있음!
+    - JSon Response를 보낼때 각 variable의 타입 = 문서에 써있다.
+
+
+
+Json Parsing
+    - JSON 표현식을 코틀린 / 자바가 이해할 수 있게 변형 하는 과정
+
+Serializable (직렬화)
+    - 자바 시스템 내부에서 사용되는 object를 외부에서 사용할 수 있도록 byte 형태로 데이터를 바꾸는것
+    - 닭꼬치라고 생각하렴.
+------------------------------------>   (닭꼬치)
+    id  name  age  intro
+
+이를 코틀린  자바가 이해할 수 있는 틀에다가 넣어준다!
+--> class!! (틀) == JSON객체를 받을 수 있는 틀을 우리가 준비하면 됨! <=== 우리가 (client)가 만들어줘야함
+ex)
+class Person(
+    var id: Int? = null,
+    var name: String?=null,
+    var age: Int? = null,
+    var intro: String?=null
+    )
+여기에 데이터를 꽂음! (json의 key == 클래스의 멤버변수!)
+
+
+Request Type                          STATUS CODE (외우지 않아도 됨!)
+    - GET       : 정보 요청          --> 200 ok   (http status code 라고 검색해서 보면 됨!)
+    - POST      : 정보 추가 요청      --> 201 created
+    - DELETE    : 정보 삭제 요청      -->
+    - PUT       : 정보 수정 요청      -->
+
+
+Status Code
+- 200번대 ==> 처리가 잘 됐다!
+그 외 ==> 잘 안됐다
+
+** Network는 절대 메인 쓰레드에서 사용할 수 없기 때문에 async task활용해서 해야함!
++ view 를 그릴때는 onPostExecute에서 bc 여기서는 ui에 접근이 가능하기 때문!
++ xml에서 layoutmanager 를 속성으로 설정할 수 있음!
+
+
+Library ( 둘다 성능 비슷함)
+    - Volly
+    - Retrofit

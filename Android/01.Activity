@@ -1,0 +1,15 @@
+
+01. Activity
+- 앱의 한 화면이다
+- 앱의 한 화면에서 다른 화면으로 넘어간다 == activity가 바뀐다
+- Life Cycle (수명 주기)
+    - Activity 클래스는 6가지의 콜백으로 구성 되어있다. (onCreate(), onStart(), onResume(), onPause(),onStop(),onDestroy())
+    - 콜백: 어떤 특정 동작이 발생하게 되면, 다른 것에 알려줌!
+    - activity lounched --> onCreate() --> onStart() --> onResume() --> Activity running --> onPause() --> onStop() --> onDestroy() --> Activity shut down
+    - onCreate() <-- 어떤 일이 있어도, onCreate()는 정상적인 호출일때는 다시 불리지 않음! (액티비티가 최초로 만들어질 때,단 한번만 불림)
+        - activity를 만들때 단 한번만 하면 되는 작업들은 여기서 해준다
+    - onStart() / on Resume()은 다시 불릴수 있음 ( 어떤 걸로 다시 시작되어도, onResume()은 반드시 거치게 됨)
+        - onResume() <-- activity가 다시 호출 될 때 하면 되는 작업들을 여기서 해준다
+    - onPause() <-- 앱의 일부분이 보이지 않을때!
+    - onStop() <-- 앱이 아예 보이지 않을때 (예. 사용자가 작업했던 것들 저장하는 작업)
+    - onDestroy()
